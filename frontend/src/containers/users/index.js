@@ -23,16 +23,37 @@ class Index extends React.Component {
 
 	constructor(props) {
 		super(props);
-		this.setState({title: 'new title'});
+		this.state = {
+			i: 0,
+		};
 	}
 
+	_handleNextOne = async (i, limit, page) => {
+		if (i < limit - 1){
+			this.setState({
+				i: i + 1
+			});
+		}else {
+			await this.props.loadUsers(limit,page + 1);
+			this.setState({
+				i: 0
+			});
+		}
+	};
+
 	render() {
-		const {error, loaded, list} = this.props.users;
+		const {error, loaded, list, currentPage, limit} = this.props.users;
+		const {i} = this.state;
 		return (
 			loaded && !error ? (
 				<div className="row">
-					<img src={list[0].picture}/>
+					<div className="user-image">
+						<img src={list[i].picture}/>
+					</div>
+					<a className="label label-danger"
+					   onClick={(e) => this._handleNextOne(i, limit, currentPage)}>Bỏ</a>
 				</div>
+
 			) : (
 				<div className="row">
 					<h2>Loading</h2>

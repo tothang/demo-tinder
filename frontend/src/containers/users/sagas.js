@@ -11,6 +11,8 @@ function* fetchPosts(action) {
 			payload: {
 				list: users,
 				loaded: true,
+				limit: action.limit,
+				page: action.page
 			}
 		});
 	} catch (e) {
