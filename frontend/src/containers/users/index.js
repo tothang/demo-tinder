@@ -41,17 +41,39 @@ class Index extends React.Component {
 		}
 	};
 
+	getAge = (dateString) => {
+		let today = new Date();
+		let birthDate = new Date(dateString);
+		let age = today.getFullYear() - birthDate.getFullYear();
+		let m = today.getMonth() - birthDate.getMonth();
+		if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+			age--;
+		}
+		return age;
+	}
+
 	render() {
 		const {error, loaded, list, currentPage, limit} = this.props.users;
 		const {i} = this.state;
+		const user = list[i];
 		return (
 			loaded && !error ? (
 				<div className="row">
 					<div className="user-image">
-						<img src={list[i].picture}/>
+						<img src={user.picture}/>
 					</div>
-					<a className="label label-danger"
-					   onClick={(e) => this._handleNextOne(i, limit, currentPage)}>Bỏ</a>
+					<div className="user-infor">
+						<h3>
+							<span>{user.firstName} {user.lastName}, {this.getAge(user.dateOfBirth)}</span>
+						</h3>
+					</div>
+					<div className="group-btn">
+						<a className="label label-danger"
+						   onClick={(e) => this._handleNextOne(i, limit, currentPage)}>
+							Like
+						</a>
+					</div>
+
 				</div>
 
 			) : (
