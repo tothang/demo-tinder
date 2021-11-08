@@ -23,6 +23,7 @@ class Index extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.setState({title: 'new title'});
 	}
 
 	render() {
@@ -30,7 +31,7 @@ class Index extends React.Component {
 		return (
 			loaded && !error ? (
 				<div className="row">
-					aaaa
+					<img src={list[0].picture}/>
 				</div>
 			) : (
 				<div className="row">
