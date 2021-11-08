@@ -26,7 +26,11 @@ class Index extends React.Component {
 		super(props);
 		this.state = {
 			i: 0,
-			isShow: false
+			isShow: false,
+			isListLike: false,
+			isListPass: false,
+			arrLiked: [],
+			arrPass: [],
 		};
 	}
 
@@ -49,21 +53,43 @@ class Index extends React.Component {
 	_handleLike = async (i, limit, page, user) => {
 		notify.show(`You Like ${user.firstName}`, 'success',1000);
 		this._handleNextOne(i, limit, page);
-		let arrLiked = localStorage.getItem('arrLiked');
-		//localStorage.setItem('arrLiked', JSON.stringify(user));
+		let arrLiked = this.state.arrLiked;
+		arrLiked.push(user);
+		this.setState({
+			arrLiked : arrLiked
+		})
 	};
 
-	_handleSkip = async (i, limit, page) => {
-		if (i < limit - 1){
-			this.setState({
-				i: i + 1
-			});
-		}else {
-			this.setState({
-				i: 0
-			});
-			await this.props.loadUsers(limit,page + 1);
-		}
+	_handleSkip = async (i, limit, page, user) => {
+		notify.show(`No`, 'success',1000);
+		this._handleNextOne(i, limit, page);
+		let arrPass = this.state.arrPass;
+		arrPass.push(user);
+		this.setState({
+			arrPass : arrPass
+		})
+	};
+
+	_showListLiked =  () => {
+		this.setState({
+			isShow : true,
+			isListLike: true,
+			isListPass: false,
+		})
+	};
+
+	_showListPass =  () => {
+		this.setState({
+			isShow : true,
+			isListPass: true,
+			isListLike: false,
+		})
+	};
+
+	_hideListLiked =  () => {
+		this.setState({
+			isShow : false
+		})
 	};
 
 	getAge = (dateString) => {
@@ -79,44 +105,83 @@ class Index extends React.Component {
 
 	render() {
 		const {error, loaded, list, currentPage, limit} = this.props.users;
-		const {i} = this.state || 0;
+		const {i , arrLiked, arrPass, isListLike, isShow} = this.state || 0;
 		const user = list[i];
 		return (
 			loaded && !error ? (
 				<div className="row">
-					<div className="user-image">
-						<img src={user.picture}/>
-					</div>
-					<div className="user-infor">
-						<h3>
-							<span>{user.firstName} {user.lastName}, {this.getAge(user.dateOfBirth)}</span>
-						</h3>
-					</div>
-					<div className="group-btn">
-						<a className="label"
-						   onClick={(e) => this._handleNextOne(i, limit, currentPage)}>
-							<img src="https://cdn-icons-png.flaticon.com/512/458/458594.png"/>
-						</a>
-						<a className="label"
-						   onClick={(e) => this._handleLike(i, limit, currentPage, user)}>
-							<img src="https://findicons.com/files/icons/734/phuzion/128/fav_heart.png"/>
-						</a>
-					</div>
+					{
+						!isShow ?
+							(
+								<div>
+									<div className="user-image">
+										<img src={user.picture}/>
+									</div>
+									<div className="user-infor">
+										<h3>
+											<span>{user.firstName} {user.lastName}, {this.getAge(user.dateOfBirth)}</span>
+										</h3>
+									</div>
+									<div className="group-btn">
+										<a className="label"
+										   onClick={(e) => this._handleSkip(i, limit, currentPage, user)}>
+											<img src="https://cdn-icons-png.flaticon.com/512/458/458594.png"/>
+										</a>
+										<a className="label"
+										   onClick={(e) => this._handleLike(i, limit, currentPage, user)}>
+											<img src="https://findicons.com/files/icons/734/phuzion/128/fav_heart.png"/>
+										</a>
+									</div>
+								</div>
+							)
+							:(
+								<div className="list-like">
+									{
+										isListLike ? (
+
+											arrLiked.map((item, index) => {
+												return (
+													<div key={index}>
+														<img src={item.picture}/>
+														<span>
+														{item.firstName} {item.lastName}, {this.getAge(user.dateOfBirth)}
+														</span>
+
+													</div>
+												)
+											})
+										):(
+												arrPass.map((item, index) => {
+													return (
+														<div key={index}>
+															<img src={item.picture}/>
+															<span>
+															{item.firstName} {item.lastName}, {this.getAge(user.dateOfBirth)}
+															</span>
+														</div>
+													)
+												})
+											)
+
+									}
+								</div>
+							)
+					}
 					<div className="group-action">
 						<div>
-							<a>
+							<a onClick={(e) => this._showListLiked()} >
 								Like
 							</a>
 
 						</div>
 						<div>
-							<a>
+							<a onClick={(e) => this._hideListLiked()}>
 								Discover
 							</a>
 						</div>
 						<div>
-							<a>
-								Match
+							<a onClick={(e) => this._showListPass()}>
+								Pass
 							</a>
 						</div>
 					</div>

@@ -38,5 +38,14 @@ body{
       }
     }
   }
+  .list-like {
+    div{
+      display: flex;
+      margin-bottom: 10px;
+      span {
+        margin-left: 10px;
+      }
+    }
+  }
 
 }

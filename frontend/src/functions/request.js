@@ -1,9 +1,4 @@
 import 'isomorphic-fetch'
-import Cookie from "js-cookie"
-
-function filterGet(_filter) {
-	return `?filters=${encodeURI(JSON.stringify(_filter))}`
-}
 
 function request(url, token, options) {
 	const headers = {
@@ -26,4 +21,4 @@ function request(url, token, options) {
 		})
 }
 
-export {request, filterGet};
+export {request};
