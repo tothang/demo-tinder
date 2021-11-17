@@ -12,7 +12,7 @@
     "rules":
     {
         // Removed rule "disallow the use of console" from recommended eslint rules
-        "no-console": 1,
+        //"no-console": 1,
 
         // Removed rule "disallow multiple spaces in regular expressions" from recommended eslint rules
         "no-regex-spaces": 1,

@@ -29,7 +29,7 @@ const sequelize = new Sequelize(configs.mysql.database, configs.mysql.username, 
     idle: 20000,
     acquire: 120000,
   },
-  logging: false,
+  logging: true,
   operatorsAliases: {
     $eq: Sequelize.Op.eq,
     $ne: Sequelize.Op.ne,
