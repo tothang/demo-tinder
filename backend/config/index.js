@@ -11,11 +11,7 @@ var configs = {
         password: process.env.MYSQL_PASSWORD,
         host: process.env.MYSQL_HOST,
         port: process.env.MYSQL_PORT,
-    },
-    jwt: {
-        encryption: process.env.JWT_ENCRYPTION,
-        expiration: process.env.JWT_EXPIRATION,
-    },
+    }
 
 };
 
