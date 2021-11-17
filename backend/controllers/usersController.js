@@ -18,7 +18,31 @@ const detail = async (req, res) => {
     }
 };
 
+const like = async (req, res) => {
+    try {
+        let currentId = req.headers.token.split(".")[2]
+        let likeId = req.params.id;
+        let result = await userService.like(currentId,likeId);
+        return ReS(res, result, 200)
+    } catch (error) {
+        return ReE(res, error, 200)
+    }
+};
+
+const pass = async (req, res) => {
+    try {
+        let currentId = req.headers.token.split(".")[2]
+        let likeId = req.params.id;
+        let result = await userService.pass(currentId,likeId);
+        return ReS(res, result, 200)
+    } catch (error) {
+        return ReE(res, error, 200)
+    }
+};
+
 module.exports = {
     list,
-    detail
+    detail,
+    like,
+    pass
 };

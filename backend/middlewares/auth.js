@@ -1,16 +1,10 @@
 const { ReE } = require('../library/response');
+const key = 'keyHereABC';
+const time = new Date().valueOf();
 module.exports = function(req, res, next) {
-    console.log(req.query);
-    if (req.params.id) return next();
-    return ReE(res, 'Unauthorized', 401);
-    // passport.authenticate('jwt', function(err, user) {
-    //     if (err) throw err;
-    //     if (!user) {
-    //         return ReE(res, 'Unauthorized', 401);
-    //     } else {
-    //         req.user = user;
-    //         return next();
-    //     }
-    // })(req, res, next)
-    //return true;
+    //return `${key}.${time}`;
+    let jwt = req.headers.token.split(".");
+    if (jwt[0] !== key) return ReE(res, 'Unauthorized', 401);
+    return next();
+    //return ReE(res, `${key}.${time}`, 401);
 }

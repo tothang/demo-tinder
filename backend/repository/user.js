@@ -18,7 +18,18 @@ const detail = async (_id) => {
         }
     });
 };
+
+const insertLike = async (data) => {
+    return mysql.LikeUser.create(data);
+};
+
+const insertPass = async (data) => {
+    return mysql.PassUser.create(data);
+};
+
 module.exports = {
     getList,
-    detail
+    detail,
+    insertLike,
+    insertPass
 }
