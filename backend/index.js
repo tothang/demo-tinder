@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const http = require('http');
 const routes = require('./routes/index');
-const error = require('./middlewares/error');
 const config = require('./config');
 
 require('./database');
@@ -42,10 +41,5 @@ app.use(cors());
 // mount routes
 app.use('/', routes);
 
-// catch 404 and forward to error handler
-app.use(error.notFound);
-
-// error handler, send stacktrace only during development
-app.use(error.handler);
 
 exports.core_service =  {app, server};
