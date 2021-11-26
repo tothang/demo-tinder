@@ -1,0 +1,46 @@
+
+.row {
+    background-color: white;
+    padding: 15px 15px;
+    width: 330px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.row .user-image {
+    width: 300px;
+}
+.row .user-image img {
+    width: 300px;
+}
+.row .group-btn {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+.row .group-btn img {
+    width: 30px;
+}
+.row .group-action {
+    margin-top: 10px;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    display: flex;
+}
+.row .group-action div {
+    cursor: pointer;
+    background-color: #cccccc;
+    padding: 10px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    width: 33.3%;
+}
+.row .group-action div a {
+    width: 100%;
+}
+.row .list-like div {
+    display: flex;
+    margin-bottom: 10px;
+}
+.row .list-like div span {
+    margin-left: 10px;
+}
