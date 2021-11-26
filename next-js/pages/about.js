@@ -1,7 +1,5 @@
-import '../styles/globals.css'
-
 function About() {
-    return <div>aBOUT</div>
+    return <div>About</div>
 }
 
 export default About
